@@ -1,0 +1,102 @@
+[gd_scene load_steps=11 format=4 uid="uid://si4f1eper6oq"]
+
+[ext_resource type="Script" path="res://Scripts/room.gd" id="1_isj4e"]
+[ext_resource type="PackedScene" uid="uid://7hrl0l64e4os" path="res://Assets/TileSet/tile_map_layer.tscn" id="2_nhmjr"]
+[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="3_q4b7g"]
+[ext_resource type="Texture2D" uid="uid://bkpagty8t4b1u" path="res://Assets/circle_05.png" id="4_23w85"]
+[ext_resource type="Script" path="res://Scripts/ash_fall_particle.gd" id="5_386qb"]
+[ext_resource type="Script" path="res://Scripts/transition_area.gd" id="6_ymyv3"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6r32a"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(120, 5, 0)
+gravity = Vector3(0, 98, 0)
+scale_min = 0.02
+scale_max = 0.05
+hue_variation_min = -0.01
+hue_variation_max = 0.00999998
+turbulence_enabled = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5ysc"]
+size = Vector2(16, 184)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2wax"]
+size = Vector2(16, 184)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_os7u6"]
+size = Vector2(16, 271.998)
+
+[node name="BaseRoom" type="Node2D"]
+script = ExtResource("1_isj4e")
+
+[node name="TileMapLayer" parent="." instance=ExtResource("2_nhmjr")]
+tile_map_data = PackedByteArray("AAD4/wUAAAAAAAAAAAD5/wUAAAAAAAAAAAD6/wUAAAAAAAAAAAD7/wUAAAAAAAAAAAD8/wUAAAAAAAAAAAD9/wUAAAAAAAAAAAD+/wUAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAD4/wQAAAAAAAAAAAD5/wQAAAAAAAAAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD8/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD+/wQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAD3/wQAAAAAAAAAAAD3/wUAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAIAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAAAAAAAAAAAAAAJAP//AAAAAAAAAAAJAP7/AAAAAAAAAAAJAP3/AAAAAAAAAAAJAPz/AAAAAAAAAAAJAPv/AAAAAAAAAAAJAPr/AAAAAAAAAAAJAPn/AAAAAAAAAAAJAPj/AAAAAAAAAAAIAPj/AAAAAAAAAAAHAPj/AAAAAAAAAAAGAPj/AAAAAAAAAAAFAPj/AAAAAAAAAAAEAPj/AAAAAAAAAAADAPj/AAAAAAAAAAACAPj/AAAAAAAAAAABAPj/AAAAAAAAAAAAAPj/AAAAAAAAAAD///j/AAAAAAAAAAD+//j/AAAAAAAAAAD9//j/AAAAAAAAAAD8//j/AAAAAAAAAAD7//j/AAAAAAAAAAD6//j/AAAAAAAAAAD5//j/AAAAAAAAAAD4//j/AAAAAAAAAAD3//j/AAAAAAAAAAD2//j/AAAAAAAAAAD2//n/AAAAAAAAAAD2//r/AAAAAAAAAAD2//v/AAAAAAAAAAD2//z/AAAAAAAAAAD2//3/AAAAAAAAAAD2//7/AAAAAAAAAAD2////AAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAAD2/wQAAAAAAAAAAAD2/wUAAAAAAAAAAAA=")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("players")]
+position = Vector2(0, -4)
+script = ExtResource("3_q4b7g")
+players = [null, null]
+
+[node name="AshFallParticle" type="GPUParticles2D" parent="Camera2D"]
+texture_filter = 1
+position = Vector2(0, -140)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_6r32a")
+texture = ExtResource("4_23w85")
+lifetime = 10.0
+preprocess = 10.0
+randomness = 0.1
+script = ExtResource("5_386qb")
+
+[node name="TransitionAreas" type="Node" parent="."]
+
+[node name="TransitionArea" type="Area2D" parent="TransitionAreas"]
+position = Vector2(-136, -4)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("6_ymyv3")
+dir_from = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/TransitionArea"]
+shape = SubResource("RectangleShape2D_f5ysc")
+
+[node name="TransitionArea2" type="Area2D" parent="TransitionAreas"]
+position = Vector2(136, -4)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("6_ymyv3")
+dir_from = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/TransitionArea2"]
+shape = SubResource("RectangleShape2D_b2wax")
+
+[node name="TransitionArea3" type="Area2D" parent="TransitionAreas"]
+position = Vector2(0, -104)
+rotation = 1.56686
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("6_ymyv3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/TransitionArea3"]
+shape = SubResource("RectangleShape2D_os7u6")
+
+[node name="TransitionArea4" type="Area2D" parent="TransitionAreas"]
+position = Vector2(0, 96)
+rotation = 1.56686
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("6_ymyv3")
+dir_from = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/TransitionArea4"]
+shape = SubResource("RectangleShape2D_os7u6")
+
+[node name="Ladders" type="Node" parent="."]
+
+[node name="Spikes" type="Node" parent="."]
+
+[node name="Spears" type="Node" parent="."]

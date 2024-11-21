@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://w57r30n7hm6w"]
+
+[ext_resource type="Texture2D" uid="uid://5tag20hlpy85" path="res://Assets/1 - Barbuta/s40_Ladder_0.png" id="1_nra2c"]
+[ext_resource type="Script" path="res://Scripts/ladder.gd" id="1_ybdmn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7xql"]
+resource_local_to_scene = true
+size = Vector2(4, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_thju8"]
+resource_local_to_scene = true
+size = Vector2(16, 2)
+
+[node name="Ladder" type="Area2D" node_paths=PackedStringArray("ladder_segments")]
+position = Vector2(8, -8)
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_ybdmn")
+texture = ExtResource("1_nra2c")
+length = 1
+ladder_segments = [NodePath("LadderSprites/S40Ladder0")]
+
+[node name="LadderSprites" type="Node2D" parent="."]
+
+[node name="S40Ladder0" type="Sprite2D" parent="LadderSprites"]
+texture = ExtResource("1_nra2c")
+
+[node name="CollShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_o7xql")
+
+[node name="TopFloor" type="StaticBody2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopFloor"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_thju8")
+one_way_collision = true

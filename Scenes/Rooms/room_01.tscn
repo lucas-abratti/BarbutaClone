@@ -1,0 +1,191 @@
+[gd_scene load_steps=16 format=4 uid="uid://dmbcca1fhgj6c"]
+
+[ext_resource type="Script" path="res://Scripts/room.gd" id="1_4k0q8"]
+[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="1_ikrec"]
+[ext_resource type="TileSet" uid="uid://dd2ukia25e1sy" path="res://Assets/TileSet/barbuta_tiles.tres" id="1_k2ucp"]
+[ext_resource type="Texture2D" uid="uid://bkpagty8t4b1u" path="res://Assets/circle_05.png" id="2_4k2e1"]
+[ext_resource type="Script" path="res://Scripts/ash_fall_particle.gd" id="3_sthi5"]
+[ext_resource type="Texture2D" uid="uid://5tag20hlpy85" path="res://Assets/1 - Barbuta/s40_Ladder_0.png" id="8_8ihv4"]
+[ext_resource type="Script" path="res://Scripts/transition_area.gd" id="12_ca8lh"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pihar"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(120, 5, 0)
+gravity = Vector3(0, 98, 0)
+scale_min = 0.02
+scale_max = 0.05
+hue_variation_min = -0.01
+hue_variation_max = 0.00999998
+turbulence_enabled = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljkw0"]
+size = Vector2(16, 88)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rtypy"]
+resource_local_to_scene = true
+size = Vector2(4, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02trh"]
+resource_local_to_scene = true
+size = Vector2(16, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dd7vh"]
+resource_local_to_scene = true
+size = Vector2(4, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k5rm7"]
+resource_local_to_scene = true
+size = Vector2(16, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_buqb8"]
+resource_local_to_scene = true
+size = Vector2(4, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e0wof"]
+resource_local_to_scene = true
+size = Vector2(16, 2)
+
+[node name="Room01" type="Node2D"]
+script = ExtResource("1_4k0q8")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD4/wUAAAAAAAAAAAD5/wUAAAAAAAAAAAD6/wUAAAAAAAAAAAD7/wUAAAAAAAAAAAD8/wUAAAAAAAAAAAD9/wUAAAAAAAAAAAD+/wUAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAD+/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAAEAP7/AAAAAAAAAAAEAP3/BQAAAAAAAAAEAPz/AAAAAAAAAAAEAPv/AAAAAAAAAAAEAPr/AAAAAAAAAAAFAPr/AAAAAAAAAAAFAPv/AAAAAAAAAAAGAPv/AAAAAAAAAAAGAPz/AAAAAAAAAAAFAPz/AAAAAAAAAAAFAP3/AAAAAAAAAAAFAP7/AAAAAAAAAAAGAPr/AAAAAAAAAAAGAP3/AAAAAAAAAAAGAP7/AAAAAAAAAAAHAPr/AAAAAAAAAAAHAPv/AAAAAAAAAAAHAPz/AAAAAAAAAAAHAP3/AAAAAAAAAAAHAP7/AAAAAAAAAAAHAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAADAAQAAAAAAAAAAAACAAQAAAAAAAAAAAD4/wQAAAAAAAAAAAD5/wQAAAAAAAAAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD8/wQAAAAAAAAAAAD+/wMAAAAAAAAAAAAAAAMAAAAAAAAAAAD6/wEACAAAAAAAAAD8/wEACAAAAAAAAAD9/wEACAAAAAAAAAD7//7/CAAAAAAAAAD8//7/CAAAAAAAAAACAP7/AAAAAAAAAAADAP7/AAAAAAAAAAD9/wMAAAAAAAAAAAABAAMAAAAAAAAAAAD+/wEACAAAAAAAAAD///7/CAAAAAAAAAD9//7/CAAAAAAAAAD3/wQAAAAAAAAAAAD3/wUAAAAAAAAAAAD2//7/AAAAAAAAAAD2////AAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAAD2/wQAAAAAAAAAAAD2/wUAAAAAAAAAAAAIAP7/AAAAAAAAAAAJAP7/AAAAAAAAAAAJAP//AAAAAAAAAAAJAAAAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAAAAAA=")
+tile_set = ExtResource("1_k2ucp")
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("players")]
+position = Vector2(0, -4)
+script = ExtResource("1_ikrec")
+players = [null, null]
+
+[node name="AshFallParticle" type="GPUParticles2D" parent="Camera2D"]
+texture_filter = 1
+position = Vector2(0, -140)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_pihar")
+texture = ExtResource("2_4k2e1")
+lifetime = 10.0
+preprocess = 10.0
+randomness = 0.1
+script = ExtResource("3_sthi5")
+
+[node name="TransitionArea" type="Area2D" parent="."]
+position = Vector2(-136, 24)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("12_ca8lh")
+room_to = 5
+dir_from = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea"]
+shape = SubResource("RectangleShape2D_ljkw0")
+
+[node name="TransitionArea2" type="Area2D" parent="."]
+position = Vector2(136, 24)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("12_ca8lh")
+room_to = 5
+dir_from = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea2"]
+shape = SubResource("RectangleShape2D_ljkw0")
+
+[node name="Ladders" type="Node" parent="."]
+
+[node name="Ladder" type="Area2D" parent="Ladders"]
+position = Vector2(-8, 88)
+collision_layer = 16
+collision_mask = 0
+
+[node name="LadderSprites" type="Node2D" parent="Ladders/Ladder"]
+
+[node name="S40Ladder0" type="Sprite2D" parent="Ladders/Ladder/LadderSprites"]
+texture = ExtResource("8_8ihv4")
+
+[node name="@Sprite2D@268576" type="Sprite2D" parent="Ladders/Ladder/LadderSprites"]
+position = Vector2(0, -16)
+texture = ExtResource("8_8ihv4")
+
+[node name="@Sprite2D@268577" type="Sprite2D" parent="Ladders/Ladder/LadderSprites"]
+position = Vector2(0, -32)
+texture = ExtResource("8_8ihv4")
+
+[node name="CollShape" type="CollisionShape2D" parent="Ladders/Ladder"]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_rtypy")
+
+[node name="TopFloor" type="StaticBody2D" parent="Ladders/Ladder"]
+position = Vector2(0, -32)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladders/Ladder/TopFloor"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_02trh")
+one_way_collision = true
+
+[node name="Ladder2" type="Area2D" parent="Ladders"]
+position = Vector2(-72, 56)
+collision_layer = 16
+collision_mask = 0
+
+[node name="LadderSprites" type="Node2D" parent="Ladders/Ladder2"]
+
+[node name="S40Ladder0" type="Sprite2D" parent="Ladders/Ladder2/LadderSprites"]
+texture = ExtResource("8_8ihv4")
+
+[node name="@Sprite2D@274385" type="Sprite2D" parent="Ladders/Ladder2/LadderSprites"]
+position = Vector2(0, -16)
+texture = ExtResource("8_8ihv4")
+
+[node name="@Sprite2D@274386" type="Sprite2D" parent="Ladders/Ladder2/LadderSprites"]
+position = Vector2(0, -32)
+texture = ExtResource("8_8ihv4")
+
+[node name="CollShape" type="CollisionShape2D" parent="Ladders/Ladder2"]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_dd7vh")
+
+[node name="TopFloor" type="StaticBody2D" parent="Ladders/Ladder2"]
+position = Vector2(0, -32)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladders/Ladder2/TopFloor"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_k5rm7")
+one_way_collision = true
+
+[node name="Ladder3" type="Area2D" parent="Ladders"]
+position = Vector2(-24, 8)
+collision_layer = 16
+collision_mask = 0
+
+[node name="LadderSprites" type="Node2D" parent="Ladders/Ladder3"]
+
+[node name="S40Ladder0" type="Sprite2D" parent="Ladders/Ladder3/LadderSprites"]
+texture = ExtResource("8_8ihv4")
+
+[node name="@Sprite2D@274910" type="Sprite2D" parent="Ladders/Ladder3/LadderSprites"]
+position = Vector2(0, -16)
+texture = ExtResource("8_8ihv4")
+
+[node name="@Sprite2D@274911" type="Sprite2D" parent="Ladders/Ladder3/LadderSprites"]
+position = Vector2(0, -32)
+texture = ExtResource("8_8ihv4")
+
+[node name="CollShape" type="CollisionShape2D" parent="Ladders/Ladder3"]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_buqb8")
+
+[node name="TopFloor" type="StaticBody2D" parent="Ladders/Ladder3"]
+position = Vector2(0, -32)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladders/Ladder3/TopFloor"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_e0wof")
+one_way_collision = true

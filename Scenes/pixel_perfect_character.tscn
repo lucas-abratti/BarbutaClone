@@ -1,0 +1,43 @@
+[gd_scene load_steps=10 format=3 uid="uid://xxq1oqe7m6ey"]
+
+[ext_resource type="Texture2D" uid="uid://cp8g2sbmfofjd" path="res://Assets/1 - Barbuta/s40_pIdle_0.png" id="1_4luuq"]
+[ext_resource type="Script" path="res://Scripts/Characters/pixel_perfect_character.gd" id="1_wef6y"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/state_machine.gd" id="2_gvglc"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/PixelPerfectStateMachine/pixel_perfect_idle_state.gd" id="3_1qysn"]
+[ext_resource type="Resource" uid="uid://ceb0v35lmg4at" path="res://Scripts/Resources/p1_inputs.tres" id="4_gkb6b"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/PixelPerfectStateMachine/pixel_perfect_jumping_state.gd" id="5_dv1hx"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/PixelPerfectStateMachine/pixel_perfect_running_state.gd" id="6_3ew3b"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/PixelPerfectStateMachine/pixel_perfect_falling_state.gd" id="7_ihdhq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0cstw"]
+size = Vector2(11, 16)
+
+[node name="PixelPerfectCharacter" type="StaticBody2D"]
+script = ExtResource("1_wef6y")
+
+[node name="S40PIdle0" type="Sprite2D" parent="."]
+texture = ExtResource("1_4luuq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_0cstw")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_gvglc")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_1qysn")
+inputs = ExtResource("4_gkb6b")
+
+[node name="Jumping" type="Node" parent="StateMachine"]
+script = ExtResource("5_dv1hx")
+inputs = ExtResource("4_gkb6b")
+
+[node name="Running" type="Node" parent="StateMachine"]
+script = ExtResource("6_3ew3b")
+inputs = ExtResource("4_gkb6b")
+
+[node name="Falling" type="Node" parent="StateMachine"]
+script = ExtResource("7_ihdhq")
+inputs = ExtResource("4_gkb6b")

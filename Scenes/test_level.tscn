@@ -1,0 +1,136 @@
+[gd_scene load_steps=15 format=4 uid="uid://0sex18vbe28b"]
+
+[ext_resource type="Script" path="res://Scripts/room.gd" id="1_nklob"]
+[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="3_tp04d"]
+[ext_resource type="PackedScene" uid="uid://q0k73b0y8pgt" path="res://Scenes/UI/Hpbar/hp_bar.tscn" id="5_8xu4y"]
+[ext_resource type="Texture2D" uid="uid://bkpagty8t4b1u" path="res://Assets/circle_05.png" id="6_g07kq"]
+[ext_resource type="TileSet" uid="uid://dd2ukia25e1sy" path="res://Assets/TileSet/barbuta_tiles.tres" id="6_o5gi2"]
+[ext_resource type="Script" path="res://Scripts/ash_fall_particle.gd" id="7_vaq6m"]
+[ext_resource type="PackedScene" uid="uid://c4pyajxvtqqx" path="res://Scenes/spike.tscn" id="10_iyp25"]
+[ext_resource type="PackedScene" uid="uid://dlk3s8bororks" path="res://Scenes/spear.tscn" id="11_fg5y5"]
+[ext_resource type="Texture2D" uid="uid://5tag20hlpy85" path="res://Assets/1 - Barbuta/s40_Ladder_0.png" id="14_mv525"]
+[ext_resource type="Script" path="res://Scripts/transition_area.gd" id="16_ebwr2"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7kg4x"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(120, 5, 0)
+gravity = Vector3(0, 98, 0)
+scale_min = 0.02
+scale_max = 0.05
+hue_variation_min = -0.01
+hue_variation_max = 0.00999998
+turbulence_enabled = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orcx4"]
+resource_local_to_scene = true
+size = Vector2(8, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_74g8v"]
+resource_local_to_scene = true
+size = Vector2(16, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jf761"]
+size = Vector2(16, 40)
+
+[node name="TestLevel" type="Node2D"]
+script = ExtResource("1_nklob")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 11.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+
+[node name="P1_HpBar" parent="CanvasLayer/MarginContainer" instance=ExtResource("5_8xu4y")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="P2_HpBar" parent="CanvasLayer/MarginContainer" instance=ExtResource("5_8xu4y")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("players")]
+position = Vector2(0, -4)
+script = ExtResource("3_tp04d")
+players = [null, null]
+
+[node name="AshFallParticle" type="GPUParticles2D" parent="Camera2D"]
+texture_filter = 1
+position = Vector2(0, -140)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_7kg4x")
+texture = ExtResource("6_g07kq")
+lifetime = 10.0
+preprocess = 10.0
+randomness = 0.1
+script = ExtResource("7_vaq6m")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAD4/wUAAAAAAAAAAAD5/wUAAAAAAAAAAAD6/wUAAAAAAAAAAAD7/wUAAAAAAAAAAAD8/wUAAAAAAAAAAAD9/wUAAAAAAAAAAAD+/wUAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAD4//r/AAAAAAAAAAD4//v/AAAAAAAAAAD4//z/AAAAAAAAAAD4//3/AAAAAAAAAAD4//7/AAAAAAAAAAD4////AAAAAAAAAAAHAPr/AAAAAAAAAAAHAPv/AAAAAAAAAAAHAPz/AAAAAAAAAAAHAP3/AAAAAAAAAAAHAP7/AAAAAAAAAAAHAP//AAAAAAAAAAD5//7/BgAAAAAAAAD6//7/BgAAAAAAAAD7//7/BgAAAAAAAAD5/wEABwAAAAAAAAD6/wEABwAAAAAAAAD7/wEAAAAAAAAAAAD8/wEAAAAAAAAAAAD//wUAAAAAAAAAAAD5/wQAAAAAAAAAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD8/wQAAAAAAAAAAAD+/wQAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAD9/wQAAAAAAAAAAAD4/wQAAAAAAAAAAAAHAAQAAAAAAAAAAAD4/wAAAAAAAAAAAAAHAAAAAAAAAAAAAAA=")
+tile_set = ExtResource("6_o5gi2")
+
+[node name="Ladder" type="Area2D" parent="."]
+position = Vector2(-40, 56)
+collision_layer = 16
+collision_mask = 0
+
+[node name="S40Ladder0" type="Sprite2D" parent="Ladder"]
+texture = ExtResource("14_mv525")
+
+[node name="CollShape" type="CollisionShape2D" parent="Ladder"]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_orcx4")
+
+[node name="TopFloor" type="StaticBody2D" parent="Ladder"]
+position = Vector2(0, -32)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladder/TopFloor"]
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_74g8v")
+one_way_collision = true
+
+[node name="@Sprite2D@43385" type="Sprite2D" parent="Ladder"]
+position = Vector2(0, -16)
+texture = ExtResource("14_mv525")
+
+[node name="@Sprite2D@43386" type="Sprite2D" parent="Ladder"]
+position = Vector2(0, -32)
+texture = ExtResource("14_mv525")
+
+[node name="TransitionArea" type="Area2D" parent="."]
+position = Vector2(120, 40)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("16_ebwr2")
+dir_from = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea"]
+shape = SubResource("RectangleShape2D_jf761")
+
+[node name="TransitionArea2" type="Area2D" parent="."]
+position = Vector2(-120, 40)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("16_ebwr2")
+room_to = 1
+dir_from = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea2"]
+shape = SubResource("RectangleShape2D_jf761")
+
+[node name="Spike" parent="." instance=ExtResource("10_iyp25")]
+position = Vector2(-8, 72)
+script = null
+
+[node name="Spear" parent="." instance=ExtResource("11_fg5y5")]
+position = Vector2(-72, 24)

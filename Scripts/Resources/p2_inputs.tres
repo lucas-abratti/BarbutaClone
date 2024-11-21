@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PlayerInputs" load_steps=2 format=3 uid="uid://0e450j7snasc"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/player_inputs.gd" id="1_k4abc"]
+
+[resource]
+script = ExtResource("1_k4abc")
+player_index = 2
+move_left = "left"
+move_right = "right"
+move_up = "up"
+move_down = "down"
+jump = "up"
+attack = "0"

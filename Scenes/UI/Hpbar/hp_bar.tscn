@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://q0k73b0y8pgt"]
+
+[ext_resource type="Script" path="res://Scripts/UI/HpBar/hp_bar.gd" id="1_84gse"]
+[ext_resource type="Texture2D" uid="uid://clqi6muolwd67" path="res://Assets/heart_00.png" id="2_xsnq2"]
+[ext_resource type="Texture2D" uid="uid://cdve3itxri123" path="res://Assets/heart_01.png" id="3_qvf3u"]
+[ext_resource type="Texture2D" uid="uid://bqhdft54pqsnw" path="res://Assets/heart_02.png" id="4_584lo"]
+[ext_resource type="PackedScene" uid="uid://7xt57tibt32d" path="res://Scenes/UI/Hpbar/heart.tscn" id="5_u174h"]
+
+[node name="HpBar" type="HBoxContainer"]
+script = ExtResource("1_84gse")
+frames = Array[Texture2D]([ExtResource("2_xsnq2"), ExtResource("3_qvf3u"), ExtResource("4_584lo")])
+heart_scene = ExtResource("5_u174h")
+
+[node name="Heart" parent="." instance=ExtResource("5_u174h")]
+layout_mode = 2
+
+[node name="Heart2" parent="." instance=ExtResource("5_u174h")]
+layout_mode = 2
+
+[node name="Heart3" parent="." instance=ExtResource("5_u174h")]
+layout_mode = 2

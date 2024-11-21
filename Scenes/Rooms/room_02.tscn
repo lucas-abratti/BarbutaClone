@@ -1,0 +1,210 @@
+[gd_scene load_steps=20 format=4 uid="uid://dkbpy6kjp2w00"]
+
+[ext_resource type="Script" path="res://Scripts/room.gd" id="1_b3em1"]
+[ext_resource type="TileSet" uid="uid://dd2ukia25e1sy" path="res://Assets/TileSet/barbuta_tiles.tres" id="2_6qrl6"]
+[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="3_sk2rv"]
+[ext_resource type="Texture2D" uid="uid://bkpagty8t4b1u" path="res://Assets/circle_05.png" id="4_g7hsb"]
+[ext_resource type="Script" path="res://Scripts/ash_fall_particle.gd" id="5_6530t"]
+[ext_resource type="Script" path="res://Scripts/transition_area.gd" id="6_35sgl"]
+[ext_resource type="PackedScene" uid="uid://b2r47e8uuw8cy" path="res://Scenes/door.tscn" id="8_dbx5q"]
+[ext_resource type="Texture2D" uid="uid://5tag20hlpy85" path="res://Assets/1 - Barbuta/s40_Ladder_0.png" id="8_dqs73"]
+[ext_resource type="PackedScene" uid="uid://drnct5kbukkhr" path="res://Scenes/slime_leak.tscn" id="9_4nwb6"]
+[ext_resource type="PackedScene" uid="uid://gw436juwircv" path="res://Scenes/Enemies/slime_enemy.tscn" id="10_et1bs"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8l56v"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(120, 5, 0)
+gravity = Vector3(0, 98, 0)
+scale_min = 0.02
+scale_max = 0.05
+hue_variation_min = -0.01
+hue_variation_max = 0.00999998
+turbulence_enabled = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ryyqi"]
+size = Vector2(16, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oydta"]
+size = Vector2(16, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7mwb"]
+resource_local_to_scene = true
+size = Vector2(4, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_re1m2"]
+resource_local_to_scene = true
+size = Vector2(16, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fse7o"]
+resource_local_to_scene = true
+size = Vector2(4, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a76mw"]
+resource_local_to_scene = true
+size = Vector2(16, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c7mc0"]
+resource_local_to_scene = true
+size = Vector2(4, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ni187"]
+resource_local_to_scene = true
+size = Vector2(16, 2)
+
+[node name="Room_02" type="Node2D" node_paths=PackedStringArray("respawn_point")]
+script = ExtResource("1_b3em1")
+respawn_point = NodePath("Marker2D")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD4//r/AAAAAAAAAAD4//v/AAAAAAAAAAD4//z/AAAAAAAAAAD4//3/AAAAAAAAAAD4//7/AAAAAAAAAAD5//r/AAAAAAAAAAD5//v/AAAAAAAAAAD5//z/AAAAAAAAAAD5//3/AAAAAAAAAAD5//7/AAAAAAAAAAD6//r/AAAAAAAAAAD6//v/AAAAAAAAAAD6//z/AAAAAAAAAAD6//3/AAAAAAAAAAD6//7/AAAAAAAAAAD7//r/AAAAAAAAAAD7//v/AAAAAAAAAAD7//z/AAAAAAAAAAD7//3/AAAAAAAAAAD8//r/AAAAAAAAAAD8//v/AAAAAAAAAAD8//z/AAAAAAAAAAD8//3/AAAAAAAAAAD9//r/AAAAAAAAAAD9//v/AAAAAAAAAAD9//z/AAAAAAAAAAD9//3/AAAAAAAAAAD+//r/AAAAAAAAAAD+//v/AAAAAAAAAAD+//z/AAAAAAAAAAD///r/AAAAAAAAAAD///v/AAAAAAAAAAD///z/AAAAAAAAAAAAAPr/AAAAAAAAAAAAAPv/AAAAAAAAAAAAAPz/AAAAAAAAAAABAPr/AAAAAAAAAAABAPv/AAAAAAAAAAACAPr/AAAAAAAAAAACAPv/AAAAAAAAAAADAPr/AAAAAAAAAAADAPv/AAAAAAAAAAAEAPr/AAAAAAAAAAAEAPv/AAAAAAAAAAAFAPr/AAAAAAAAAAAFAPv/AAAAAAAAAAAGAPr/AAAAAAAAAAAGAPv/AAAAAAAAAAAHAPr/AAAAAAAAAAAHAPv/AAAAAAAAAAAHAPz/AAAAAAAAAAAHAP3/AAAAAAAAAAAHAP7/AAAAAAAAAAD4/wUAAAAAAAAAAAD5/wUAAAAAAAAAAAD6/wUAAAAAAAAAAAD7/wUAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAD7/wQAAAAAAAAAAAD6////AAAAAAAAAAD+//3/AAAAAAAAAAAHAP//AAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAAAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAD//wMACAAAAAAAAAABAAMACAAAAAAAAAACAAMACAAAAAAAAAD+/wMACAAAAAAAAAD4/wQAAAAAAAAAAAD5/wQAAAAAAAAAAAD6/wQAAAAAAAAAAAD7/wMAAAAAAAAAAAD8/wAACAAAAAAAAAD9/wAACAAAAAAAAAD+/wAACAAAAAAAAAD//wAACAAAAAAAAAAAAAAACAAAAAAAAAACAAAACAAAAAAAAAAGAPz/AAAAAAAAAAAGAP3/AAAAAAAAAAAGAP7/AAAAAAAAAAAGAP//AAAAAAAAAAD2//7/AAAAAAAAAAD2////AAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAAD2/wQAAAAAAAAAAAD2/wUAAAAAAAAAAAD3/wQAAAAAAAAAAAD3/wUAAAAAAAAAAAD3//7/AAAAAAAAAAD7/wYAAAAAAAAAAAD7/wcAAAAAAAAAAAD8/wcAAAAAAAAAAAD9/wcAAAAAAAAAAAD+/wcAAAAAAAAAAAD//wcAAAAAAAAAAAAAAAcAAAAAAAAAAAABAAcAAAAAAAAAAAACAAcAAAAAAAAAAAADAAcAAAAAAAAAAAADAAYAAAAAAAAAAAA=")
+tile_set = ExtResource("2_6qrl6")
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("players")]
+position = Vector2(0, -4)
+script = ExtResource("3_sk2rv")
+players = [null, null]
+
+[node name="AshFallParticle" type="GPUParticles2D" parent="Camera2D"]
+texture_filter = 1
+position = Vector2(0, -140)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_8l56v")
+texture = ExtResource("4_g7hsb")
+lifetime = 10.0
+preprocess = 10.0
+randomness = 0.1
+script = ExtResource("5_6530t")
+
+[node name="TransitionArea" type="Area2D" parent="."]
+position = Vector2(-136, 24)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("6_35sgl")
+dir_from = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea"]
+shape = SubResource("RectangleShape2D_ryyqi")
+
+[node name="TransitionArea2" type="Area2D" parent="."]
+position = Vector2(-8, 88)
+rotation = -1.57079
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("6_35sgl")
+room_to = 5
+dir_from = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea2"]
+position = Vector2(-8, 1.77701e-05)
+shape = SubResource("RectangleShape2D_oydta")
+
+[node name="Ladder" type="Area2D" parent="."]
+position = Vector2(-72, 40)
+collision_layer = 16
+collision_mask = 0
+
+[node name="LadderSprites" type="Node2D" parent="Ladder"]
+
+[node name="S40Ladder0" type="Sprite2D" parent="Ladder/LadderSprites"]
+texture = ExtResource("8_dqs73")
+
+[node name="@Sprite2D@250977" type="Sprite2D" parent="Ladder/LadderSprites"]
+position = Vector2(0, -16)
+texture = ExtResource("8_dqs73")
+
+[node name="@Sprite2D@250978" type="Sprite2D" parent="Ladder/LadderSprites"]
+position = Vector2(0, -32)
+texture = ExtResource("8_dqs73")
+
+[node name="CollShape" type="CollisionShape2D" parent="Ladder"]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_n7mwb")
+
+[node name="TopFloor" type="StaticBody2D" parent="Ladder"]
+position = Vector2(0, -32)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladder/TopFloor"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_re1m2")
+one_way_collision = true
+
+[node name="Ladder2" type="Area2D" parent="."]
+position = Vector2(8, 88)
+collision_layer = 16
+collision_mask = 0
+
+[node name="LadderSprites" type="Node2D" parent="Ladder2"]
+
+[node name="S40Ladder0" type="Sprite2D" parent="Ladder2/LadderSprites"]
+texture = ExtResource("8_dqs73")
+
+[node name="@Sprite2D@251494" type="Sprite2D" parent="Ladder2/LadderSprites"]
+position = Vector2(0, -16)
+texture = ExtResource("8_dqs73")
+
+[node name="@Sprite2D@251495" type="Sprite2D" parent="Ladder2/LadderSprites"]
+position = Vector2(0, -32)
+texture = ExtResource("8_dqs73")
+
+[node name="CollShape" type="CollisionShape2D" parent="Ladder2"]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_fse7o")
+
+[node name="TopFloor" type="StaticBody2D" parent="Ladder2"]
+position = Vector2(0, -32)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladder2/TopFloor"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_a76mw")
+one_way_collision = true
+
+[node name="Ladder3" type="Area2D" parent="."]
+position = Vector2(24, 40)
+collision_layer = 16
+collision_mask = 0
+
+[node name="LadderSprites" type="Node2D" parent="Ladder3"]
+
+[node name="S40Ladder0" type="Sprite2D" parent="Ladder3/LadderSprites"]
+texture = ExtResource("8_dqs73")
+
+[node name="@Sprite2D@252011" type="Sprite2D" parent="Ladder3/LadderSprites"]
+position = Vector2(0, -16)
+texture = ExtResource("8_dqs73")
+
+[node name="@Sprite2D@252012" type="Sprite2D" parent="Ladder3/LadderSprites"]
+position = Vector2(0, -32)
+texture = ExtResource("8_dqs73")
+
+[node name="CollShape" type="CollisionShape2D" parent="Ladder3"]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_c7mc0")
+
+[node name="TopFloor" type="StaticBody2D" parent="Ladder3"]
+position = Vector2(0, -32)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladder3/TopFloor"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ni187")
+one_way_collision = true
+
+[node name="Door" parent="." instance=ExtResource("8_dbx5q")]
+position = Vector2(104, 24)
+pos_to = Vector2(-8, 40)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(72, 8)
+
+[node name="SlimeLeak" parent="." instance=ExtResource("9_4nwb6")]
+position = Vector2(-40, 16)
+
+[node name="SlimeEnemy" parent="." instance=ExtResource("10_et1bs")]
+position = Vector2(-56, -8)

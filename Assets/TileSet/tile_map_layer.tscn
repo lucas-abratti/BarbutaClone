@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://7hrl0l64e4os"]
+
+[ext_resource type="TileSet" uid="uid://dd2ukia25e1sy" path="res://Assets/TileSet/barbuta_tiles.tres" id="1_iuxe4"]
+
+[node name="TileMapLayer" type="TileMapLayer"]
+tile_set = ExtResource("1_iuxe4")

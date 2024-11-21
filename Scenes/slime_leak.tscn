@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://drnct5kbukkhr"]
+
+[ext_resource type="Script" path="res://Scripts/slime_leak.gd" id="1_vkvx8"]
+[ext_resource type="Texture2D" uid="uid://c433rab2h8ylg" path="res://Assets/1 - Barbuta/s40_Slime_0.png" id="2_8kgsb"]
+[ext_resource type="Script" path="res://Scripts/DamageSystem/hit_box.gd" id="3_jqobx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_22nvy"]
+size = Vector2(5, 10)
+
+[node name="SlimeLeak" type="Node2D" node_paths=PackedStringArray("timer", "slime_drop", "drop_hit_box")]
+script = ExtResource("1_vkvx8")
+timer = NodePath("Timer")
+slime_drop = NodePath("SlimeDrop")
+drop_hit_box = NodePath("SlimeDrop/HitBox")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="SlimeDrop" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_8kgsb")
+
+[node name="HitBox" type="Area2D" parent="SlimeDrop"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("3_jqobx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlimeDrop/HitBox"]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_22nvy")
