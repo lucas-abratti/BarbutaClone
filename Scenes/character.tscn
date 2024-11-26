@@ -5,8 +5,8 @@
 [ext_resource type="Resource" uid="uid://ceb0v35lmg4at" path="res://Scripts/Resources/p1_inputs.tres" id="2_v7ra8"]
 [ext_resource type="Texture2D" uid="uid://cp8g2sbmfofjd" path="res://Assets/1 - Barbuta/s40_pIdle_0.png" id="4_upvm1"]
 [ext_resource type="Script" path="res://Scripts/StateMachine/state_machine.gd" id="5_8m1fe"]
+[ext_resource type="Script" path="res://Scripts/DamageSystem/hit_box.gd" id="5_c6u5d"]
 [ext_resource type="Script" path="res://Scripts/StateMachine/idle_state.gd" id="5_ghlo0"]
-[ext_resource type="PackedScene" uid="uid://cfowyao71flkm" path="res://Scenes/hit_box.tscn" id="6_3e4x6"]
 [ext_resource type="Texture2D" uid="uid://b3hngvaqoo21y" path="res://Assets/1 - Barbuta/s40_pSword_0.png" id="6_dwpet"]
 [ext_resource type="Script" path="res://Scripts/StateMachine/running_state.gd" id="6_lskb7"]
 [ext_resource type="Texture2D" uid="uid://dan0co5oxqnwh" path="res://Assets/1 - Barbuta/s40_Egg_0.png" id="7_uj0oj"]
@@ -502,12 +502,15 @@ texture = ExtResource("4_upvm1")
 
 [node name="WaponPivot" type="Node2D" parent="CharacterBody2D"]
 
-[node name="HitBox" parent="CharacterBody2D/WaponPivot" node_paths=PackedStringArray("entity_owner") instance=ExtResource("6_3e4x6")]
+[node name="HitBox" type="Area2D" parent="CharacterBody2D/WaponPivot" node_paths=PackedStringArray("entity_owner")]
 position = Vector2(6, 3)
+collision_layer = 2
+collision_mask = 64
+script = ExtResource("5_c6u5d")
 enabled_by_default = false
 entity_owner = NodePath("../../..")
 
-[node name="CollisionShape2D" parent="CharacterBody2D/WaponPivot/HitBox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/WaponPivot/HitBox"]
 position = Vector2(3, 0)
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_lo0yc")
@@ -580,4 +583,3 @@ libraries = {
 }
 
 [editable path="CharacterBody2D/HurtBox"]
-[editable path="CharacterBody2D/WaponPivot/HitBox"]

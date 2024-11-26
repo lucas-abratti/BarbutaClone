@@ -26,6 +26,8 @@ PlayerManager="*res://Scripts/GlobalScripts/PlayerManager.gd"
 
 window/size/viewport_width=256
 window/size/viewport_height=184
+window/size/window_width_override=768
+window/size/window_height_override=552
 window/stretch/mode="viewport"
 mouse_cursor/custom_image="res://Assets/1 - Barbuta/s40_eBossColors_0.png"
 
@@ -102,10 +104,11 @@ f={
 
 2d_physics/layer_1="world"
 2d_physics/layer_2="hit_boxes"
-2d_physics/layer_3="hurt_boxes"
+2d_physics/layer_3="player_hurt_box"
 2d_physics/layer_4="player_body"
 2d_physics/layer_5="interaction_areas"
 2d_physics/layer_6="ladder_stops"
+2d_physics/layer_7="enemies_hurt_box"
 
 [physics]
 

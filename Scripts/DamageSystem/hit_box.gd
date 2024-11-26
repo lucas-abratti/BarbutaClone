@@ -1,6 +1,8 @@
 class_name HitBox
 extends Area2D
 
+signal dmg_delat(damage: float)
+
 @export var enabled_by_default: bool = true
 @export var entity_owner: Node2D
 
@@ -18,6 +20,7 @@ func on_area_entered(area: Area2D) -> void:
 	if area is not HurtBox or area.owner == entity_owner: return
 	var hurt_box = area as HurtBox
 	hurt_box.recieve_dmg(dmg)
+	dmg_delat.emit(dmg)
 
 func activate() -> void:
 	set_visible(true)

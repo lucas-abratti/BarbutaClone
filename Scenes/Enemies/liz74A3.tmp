@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://cgrjvy1ic7cxj"]
+
+[ext_resource type="Script" path="res://Scripts/DamageSystem/hurt_box.gd" id="1_5358h"]
+[ext_resource type="Script" path="res://Scenes/Enemies/lizard_enemy.gd" id="1_a3dlq"]
+[ext_resource type="Texture2D" uid="uid://ch5hq6jlgivv3" path="res://Assets/1 - Barbuta/s40_eLizard_0.png" id="2_0hyg8"]
+[ext_resource type="Texture2D" uid="uid://cmiovh4874jr" path="res://Assets/1 - Barbuta/s40_pAxe_0.png" id="4_0wsuk"]
+[ext_resource type="Texture2D" uid="uid://crqd0ru31njiw" path="res://Assets/1 - Barbuta/s40_pAxe_1.png" id="5_iufnv"]
+[ext_resource type="Script" path="res://Scripts/DamageSystem/hit_box.gd" id="6_tesmt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jpamf"]
+size = Vector2(7.4587, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ron78"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_0wsuk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_iufnv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cp1ht"]
+size = Vector2(12, 12)
+
+[node name="LizardEnemy" type="Node2D" node_paths=PackedStringArray("hurt_box", "anim_player", "lizard_sprite", "shot_cooldown", "pickaxe_sprite", "hit_box")]
+script = ExtResource("1_a3dlq")
+hurt_box = NodePath("HurtBox")
+anim_player = NodePath("AnimPlayer")
+lizard_sprite = NodePath("LizardSprite")
+shot_cooldown = NodePath("ShotCooldown")
+pickaxe_sprite = NodePath("PickaxeSprite")
+hit_box = NodePath("PickaxeSprite/HitBox")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 2
+script = ExtResource("1_5358h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+rotation = -3.14159
+scale = Vector2(2.14515, -1)
+shape = SubResource("RectangleShape2D_jpamf")
+
+[node name="LizardSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_0hyg8")
+
+[node name="AnimPlayer" type="AnimationPlayer" parent="."]
+
+[node name="PickaxeSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(14, 0)
+sprite_frames = SubResource("SpriteFrames_ron78")
+autoplay = "default"
+frame_progress = 0.031488
+
+[node name="HitBox" type="Area2D" parent="PickaxeSprite"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("6_tesmt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickaxeSprite/HitBox"]
+shape = SubResource("RectangleShape2D_cp1ht")
+
+[node name="ShotCooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true

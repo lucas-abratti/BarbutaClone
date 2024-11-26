@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://dkbpy6kjp2w00"]
+[gd_scene load_steps=22 format=4 uid="uid://dkbpy6kjp2w00"]
 
 [ext_resource type="Script" path="res://Scripts/room.gd" id="1_b3em1"]
 [ext_resource type="TileSet" uid="uid://dd2ukia25e1sy" path="res://Assets/TileSet/barbuta_tiles.tres" id="2_6qrl6"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://5tag20hlpy85" path="res://Assets/1 - Barbuta/s40_Ladder_0.png" id="8_dqs73"]
 [ext_resource type="PackedScene" uid="uid://drnct5kbukkhr" path="res://Scenes/slime_leak.tscn" id="9_4nwb6"]
 [ext_resource type="PackedScene" uid="uid://gw436juwircv" path="res://Scenes/Enemies/slime_enemy.tscn" id="10_et1bs"]
+[ext_resource type="PackedScene" uid="uid://cnc3l04sx4bnj" path="res://Scenes/Enemies/bat_enemy.tscn" id="11_j75jl"]
+[ext_resource type="PackedScene" uid="uid://cgrjvy1ic7cxj" path="res://Scenes/Enemies/lizard_enemy.tscn" id="12_lnb3i"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8l56v"]
 particle_flag_disable_z = true
@@ -208,3 +210,13 @@ position = Vector2(-40, 16)
 
 [node name="SlimeEnemy" parent="." instance=ExtResource("10_et1bs")]
 position = Vector2(-56, -8)
+
+[node name="BatEnemy" parent="." instance=ExtResource("11_j75jl")]
+position = Vector2(-120, 82)
+
+[node name="LizardEnemy" parent="." instance=ExtResource("12_lnb3i")]
+position = Vector2(-24, 40)
+
+[node name="LizardEnemy2" parent="." instance=ExtResource("12_lnb3i")]
+position = Vector2(-72, 40)
+shoot_left = true

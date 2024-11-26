@@ -48,5 +48,5 @@ func on_dmg_recieved(incoming_dmg: float) -> void:
 		disable_slime.call_deferred()
 
 func disable_slime() -> void:
-		visible = false
-		process_mode = PROCESS_MODE_DISABLED
+	visible = false
+	process_mode = PROCESS_MODE_DISABLED
